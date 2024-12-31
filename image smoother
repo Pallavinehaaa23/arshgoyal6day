@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
+          vector<vector<int>> ans=img;
+        int delRow[]={-1,-1,-1,0,0,0,1,1,1};
+        int delCol[]={-1,0,1,-1,0,1,-1,0,1};
+        int row=img.size();
+        int col=img[0].size();
+        for(int i=0;i<row;++i){
+            for(int j=0;j<col;++j){
+                int sum=0,cnt=0;
+                for(int k=0;k<9;++k){
+                    int nrow=i+delRow[k];
+                    int ncol=j+delCol[k];
+                    if(nrow>=0 && nrow<row && ncol>=0 && ncol<col){
+                        sum+=img[nrow][ncol];
+                        cnt++;
+                    }
+                }
+                ans[i][j]=sum/cnt;
+            }
+        }
+        return ans;
+    }
+};
