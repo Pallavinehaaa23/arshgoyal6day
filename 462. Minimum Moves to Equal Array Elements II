@@ -1,0 +1,19 @@
+class Solution {
+public:
+int f(int mid,vector<int>& nums){
+    int sum=0;
+    for(int i=0;i<nums.size();i++)
+    sum=sum+abs(nums[i]-nums[mid]);
+    return sum;
+}
+    int minMoves2(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        int low=0,high=n-1;
+        // int ans=INT_MAX;
+        
+            int mid=(low+high)/2;
+           int ans=f(mid,nums);
+        return ans;
+    }
+};
