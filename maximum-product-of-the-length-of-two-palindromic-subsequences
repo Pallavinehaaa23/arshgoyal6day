@@ -1,0 +1,39 @@
+class Solution {
+public:
+int LPS(string a,string b,int i,int j,vector<vector<int>>&dp){
+    if(i<0||j<0)return 0;
+    if(dp[i][j]!=-1)return dp[i][j];
+    if(a[i]==b[j])
+    return dp[i][j]= 1+LPS(a,b,i-1,j-1,dp);
+    else
+    return dp[i][j]=max(LPS(a,b,i-1,j,dp),LPS(a,b,i,j-1,dp));
+
+}
+    int maxProduct(string s) {
+        int ans = 0, len = s.size();
+     
+        for(int i = 1; i < pow(2,len-1); i++){
+            string p = "", q = "";
+            string t="",u="";
+            
+
+            for(int j = 0; j < len; j++){
+                if( i & 1<<j ) p+=s[j];
+                else q+=s[j];
+            }
+            t=p;
+            u=q;
+            reverse(t.begin(),t.end());
+             reverse(u.begin(),u.end());
+               
+            vector<vector<int>> dp(p.length(), vector<int>(t.length(), -1));
+            vector<vector<int>> dp2(q.length(), vector<int>(u.length(), -1));
+
+            int lps1 = LPS(p, t, p.length() - 1, t.length() - 1, dp);
+            int lps2 = LPS(q, u, q.length() - 1, u.length() - 1, dp2);
+
+            ans = max(ans, lps1 * lps2);
+        }
+        return ans;
+    }
+};
