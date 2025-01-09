@@ -1,0 +1,25 @@
+class Solution {
+  public:
+Node* linkdelete(Node* head, int n, int m) {
+    Node* curr = head;
+    while (curr) {
+        int z = m, w = n;
+        while (z > 1 && curr) {
+            z--;
+            curr = curr->next;
+        }
+        if (!curr) break; 
+        Node* x = curr->next;
+        while (w > 0 && x) {
+            Node* temp = x;
+            x = x->next;
+            delete temp; // Free the memory of the node
+            w--;
+        }
+        curr->next = x;
+        curr = curr->next;
+    }
+    return head;
+}
+
+};
