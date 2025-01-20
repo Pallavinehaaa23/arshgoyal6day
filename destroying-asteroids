@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        sort(asteroids.begin(),asteroids.end(),greater<int>());
+        long long sum=mass;
+        
+        while(asteroids.size()>0){
+            if( asteroids.size()>0 && asteroids.back()<=sum){
+                sum=sum+asteroids.back();
+                asteroids.pop_back();
+            }
+            else
+            break;
+        }
+        return asteroids.size()==0;
+    }
+};
