@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int countCollisions(string directions) {
+        int cnt = 0;  // To count collisions
+        int movingRight = 0;  // Count of right-moving cars ('R')
+int st=0;
+        for (int i = 0; i < directions.size(); i++) {
+            if (directions[i] == 'R') {
+                movingRight++;  // Increment count of right-moving cars
+            } 
+            else if (directions[i] == 'L') {
+                if (movingRight > 0) {
+                    cnt += movingRight + 1; 
+                    st=1; // All 'R' cars and this 'L' car collide
+                    movingRight = 0;  // Reset right-moving cars after collision
+                } else if(st>0) {
+                    cnt++;  // This 'L' collides with a stationary car
+                }
+               
+                directions[i] = 'S';  // Mark this car as stationary
+            } 
+            else if (directions[i] == 'S') {
+                st=1;
+                cnt += movingRight;  // All 'R' cars collide with this stationary car
+                movingRight = 0;  // Reset right-moving cars
+            }
+        }
+
+        return cnt;
+    }
+};
