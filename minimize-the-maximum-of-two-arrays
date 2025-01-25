@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+
+class Solution {
+    // Function to calculate the Least Common Multiple (LCM)
+    ll LCM(ll x, ll y) {
+        return (x * y) / __gcd(x, y);
+    }
+    
+    // Function to check if it is possible to meet the conditions with the given max_value
+    bool IsPossible(ll max_value, const int divisor1, const int divisor2, const int uniqueCnt1, const int uniqueCnt2) {
+        ll valid = max_value;
+
+        // Count numbers divisible by both divisors
+        ll both_invalid = max_value / LCM(divisor1, divisor2);
+        
+        // Count numbers divisible only by divisor1 or divisor2
+        ll arr1_invalid = max_value / divisor1 - both_invalid;
+        ll arr2_invalid = max_value / divisor2 - both_invalid;
+
+        // Numbers not divisible by either divisor
+        ll can_be_in_any = max_value - arr2_invalid - arr1_invalid - both_invalid;
+
+        // Adjust for the deficit in unique counts
+        if (arr2_invalid < uniqueCnt1) can_be_in_any -= (uniqueCnt1 - arr2_invalid);
+        if (arr1_invalid < uniqueCnt2) can_be_in_any -= (uniqueCnt2 - arr1_invalid);
+
+        return (can_be_in_any >= 0);
+    }
+
+public:
+    // Function to find the minimum maximum value to satisfy the conditions
+    int minimizeSet(int divisor1, int divisor2, int uniqueCnt1, int uniqueCnt2) {
+        ll l = 1, r = 2e9; // Define the search range
+        while (l < r) {
+            ll m = (l + r) >> 1; // Midpoint of the range
+
+            // Binary search to find the minimum value
+            if (IsPossible(m, divisor1, divisor2, uniqueCnt1, uniqueCnt2)) 
+                r = m; // If possible, search in the left half
+            else 
+                l = m + 1; // Otherwise, search in the right half
+        }
+        return l; // Return the minimum value
+    }
+};
+
