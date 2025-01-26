@@ -1,0 +1,28 @@
+class DataStream {
+public:
+vector<int>v;
+int x;
+int sz;
+int cnt=0;
+unordered_map<int,int>mp;
+    DataStream(int value, int k) {
+       x=value;
+        sz=k;
+    }
+    
+    bool consec(int num) {
+    if(num==x){
+        cnt++;
+        return cnt>=sz;
+    }
+      cnt=0;
+      return false;
+    }
+};
+
+/**
+ * Your DataStream object will be instantiated and called as such:
+ * DataStream* obj = new DataStream(value, k);
+ * bool param_1 = obj->consec(num);
+ */
+
