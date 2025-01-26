@@ -1,0 +1,12 @@
+ vector<int> findTwoElement(vector<int>& arr) {
+       unordered_map<int,int>mp;
+       int rep=-1,mis=-1;
+       int n=arr.size();
+       for(auto i:arr)mp[i]++;
+       for(int i=1;i<=n;i++){
+            if(mp.find(i)==mp.end())mis=i;
+           if(mp[i]>1)rep=i;
+          
+       }
+       return {rep,mis};// code here
+    }
