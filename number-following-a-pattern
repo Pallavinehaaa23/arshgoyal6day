@@ -1,0 +1,18 @@
+string printMinNumberForPattern(string S){
+       stack<int>st;
+       string ans="";
+       for(int i=1;i<=S.size()+1;i++){
+    
+           st.push(i);
+           
+          if(S[i-1]=='I'||i-1==S.size()){
+             
+            while(!st.empty()) {
+                ans=ans+char(st.top()+'0');
+                st.pop();
+            }  
+            
+           }
+       }
+       return ans;// code here 
+    }
